@@ -3,8 +3,9 @@ from tkinter import *
 import GameEngine
 
 root = Tk()
-launchFrame = Frame(root)
+launchFrame = Frame(root, bg='#fcedcc', height=250, padx=5)
 
+top_frame = Frame(root, bg='cyan', width=500, height=50).pack()
 
 def gui_launcher():
     root.wm_geometry("500x500")
@@ -17,7 +18,7 @@ def gui_launcher():
     stats.pack()
     exitB = Button(launchFrame, text='Exit', fg='green', bg='black')
     exitB.pack()
-    launchFrame.pack(pady=20)
+    launchFrame.pack(fill=X)
     root.mainloop()
 
 def startGame(event):
@@ -25,8 +26,21 @@ def startGame(event):
         widget.destroy()
     chosenWord = GameEngine.wordpicker()
     hiddenWord = Label(launchFrame, text=GameEngine.getHiddenWord(chosenWord), font=(None, 20))
+    hiddenWord.place(x=25, y=25, anchor="center")
     hiddenWord.pack()
     print(chosenWord)
-    launchFrame.pack()
+    entryFrame=Frame(root, bg='#fcedcc')
+    Label(entryFrame, text="Guess a Letter: ").pack(side="left")
+    inputU = Entry(entryFrame)
+    inputU.pack(side="left")
+    submitButton = Button(entryFrame, text="Submit")
+    submitButton.pack(side="left")
+    entryFrame.pack(pady=20)
+    launchFrame.configure(bg='#fcedcc')
+    launchFrame.pack(fill=X)
+
+
+
+
 
 gui_launcher()
