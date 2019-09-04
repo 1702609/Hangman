@@ -1,6 +1,10 @@
 from tkinter import *
 
+import random
 import GameEngine
+
+words = 'feminist functionalist globalisation verstehen postmodernism durkheim parson murdock murray becker ' \
+            'interactionism simulacra phenomenology'.split()
 
 root = Tk()
 launchFrame = Frame(root, bg='#fcedcc', height=250, padx=5)
@@ -21,11 +25,16 @@ def gui_launcher():
     launchFrame.pack(fill=X)
     root.mainloop()
 
+def getChoosenWord():
+    num = random.randint(0, len(words) - 1)  # it selects a number
+    return (words[num]).lower()
+
 def startGame(event):
+    ge = GameEngine.GameEngine(getChoosenWord())
     for widget in launchFrame.winfo_children():
         widget.destroy()
-    chosenWord = GameEngine.wordpicker()
-    hiddenWord = Label(launchFrame, text=GameEngine.getHiddenWord(chosenWord), font=(None, 20))
+    chosenWord = ge.getChoosenWord()
+    hiddenWord = Label(launchFrame, text=ge.getHiddenWord(), font=(None, 20))
     hiddenWord.place(x=25, y=25, anchor="center")
     hiddenWord.pack()
     print(chosenWord)
@@ -39,7 +48,8 @@ def startGame(event):
     launchFrame.configure(bg='#fcedcc')
     launchFrame.pack(fill=X)
 
-
+def submitLetter(inputU):
+    GameEngine.user_input()
 
 
 
