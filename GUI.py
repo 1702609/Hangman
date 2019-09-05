@@ -1,13 +1,14 @@
 from tkinter import *
 
 import random
-import GameEngine
+from GameEngine import GameEngine
 
 words = 'feminist functionalist globalisation verstehen postmodernism durkheim parson murdock murray becker ' \
             'interactionism simulacra phenomenology'.split()
 
 root = Tk()
 launchFrame = Frame(root, bg='#fcedcc', height=250, padx=5)
+
 
 top_frame = Frame(root, bg='cyan', width=500, height=50).pack()
 
@@ -30,7 +31,8 @@ def getChoosenWord():
     return (words[num]).lower()
 
 def startGame(event):
-    ge = GameEngine.GameEngine(getChoosenWord())
+    global ge
+    ge = GameEngine(getChoosenWord())
     for widget in launchFrame.winfo_children():
         widget.destroy()
     chosenWord = ge.getChoosenWord()
@@ -40,16 +42,18 @@ def startGame(event):
     print(chosenWord)
     entryFrame=Frame(root, bg='#fcedcc')
     Label(entryFrame, text="Guess a Letter: ").pack(side="left")
+    global inputU
     inputU = Entry(entryFrame)
     inputU.pack(side="left")
     submitButton = Button(entryFrame, text="Submit")
     submitButton.pack(side="left")
+    submitButton.bind('<Button-1>', submitLetter)
     entryFrame.pack(pady=20)
     launchFrame.configure(bg='#fcedcc')
     launchFrame.pack(fill=X)
 
-def submitLetter(inputU):
-    GameEngine.user_input()
+def submitLetter(event):
+    print(ge.isGuessCorrect(inputU.get()))
 
 
 

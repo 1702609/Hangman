@@ -1,9 +1,12 @@
 
 class GameEngine:
     word = " "
+    wordArray = []
 
     def __init__(self, choosenWord):
-       self.word = choosenWord
+        self.word = choosenWord
+        for ind in self.word:  # converts words to string list
+            self.wordArray.append(ind)
 
     def getChoosenWord(self):
         return self.word
@@ -21,8 +24,12 @@ class GameEngine:
         return dashes_together
 
 
-    def user_input(self,uInput):
-       return 0
+    def isGuessCorrect(self, uInput):
+        correctGuess = False
+        for i in self.wordArray:
+           if uInput == i:
+               correctGuess = True
+        return correctGuess
 
 
 
