@@ -2,6 +2,7 @@ import tkinter as tk
 import random
 from GameEngine import GameEngine
 from PIL import ImageTk, Image
+import threading
 
 words = 'feminist functionalist globalisation verstehen postmodernism durkheim parson murdock murray becker ' \
             'interactionism simulacra phenomenology'.split()
@@ -58,11 +59,17 @@ def submitLetter(event):
     if ge.isGuessCorrect(inputU.get()) == True:
         hiddenWord.config(text = ge.getUpdate(inputU.get()))
     else:
-        picID = ge.getNumberOfFails()
-        img = ImageTk.PhotoImage(Image.open("img/pic"+str(picID)+".png"))
-        canvas.create_image(260, 400, image=img)
-        canvas.pack()
-        # The Label widget is a standard Tkinter widget used to display a text or image on the screen.
-        root.mainloop()
+        wrongGuess()
+
+def wrongGuess():
+    picID = ge.getNumberOfFails()
+    img = ImageTk.PhotoImage(Image.open("img/pic" + str(picID) + ".png"))
+    canvas.create_image(260, 400, image=img)
+    canvas.pack()
+    # The Label widget is a standard Tkinter widget used to display a text or image on the screen.
+    root.mainloop()
+
+    #thread1 = threading.Thread(target=fun1, args=(12, 10))
+    #thread1.start()
 
 gui_launcher()
