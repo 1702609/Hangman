@@ -63,7 +63,9 @@ def guiForGame():
     launchFrame.pack(fill=tk.X)
 
 def submitLetter(event):
-    if ge.isGuessCorrect(inputU.get()) == True:
+    if submitButton['state'] == 'disabled':
+        pass
+    elif ge.isGuessCorrect(inputU.get()) == True:
         hiddenWord.config(text = ge.getUpdate(inputU.get()))
     else:
         wrongGuess()
@@ -78,11 +80,14 @@ def wrongGuess():
 
 
 def isWordComplete():
-    while True:
+    flag = True
+    while flag:
         if "-" in hiddenWord.cget("text"):
             time.sleep(0.5)
         else:
             time.sleep(0.5)
             submitButton['state'] = 'disabled'
+            flag = False
+    print("The thread has been terminated")
 
 gui_launcher()
