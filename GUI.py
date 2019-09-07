@@ -1,3 +1,4 @@
+import time
 import tkinter as tk
 import random
 from GameEngine import GameEngine
@@ -34,6 +35,11 @@ def getChoosenWord():
 def startGame(event):
     global ge
     ge = GameEngine(getChoosenWord())
+    guiForGame()
+    thread1 = threading.Thread(target=isWordComplete)
+    thread1.start()
+
+def guiForGame():
     for widget in launchFrame.winfo_children():
         widget.destroy()
     chosenWord = ge.getChoosenWord()
@@ -48,6 +54,7 @@ def startGame(event):
     global inputU
     inputU = tk.Entry(entryFrame)
     inputU.pack(side="left")
+    global submitButton
     submitButton = tk.Button(entryFrame, text="Submit")
     submitButton.pack(side="left")
     submitButton.bind('<Button-1>', submitLetter)
@@ -69,7 +76,13 @@ def wrongGuess():
     # The Label widget is a standard Tkinter widget used to display a text or image on the screen.
     root.mainloop()
 
-    #thread1 = threading.Thread(target=fun1, args=(12, 10))
-    #thread1.start()
+
+def isWordComplete():
+    while True:
+        if "-" in hiddenWord.cget("text"):
+            time.sleep(0.5)
+        else:
+            time.sleep(0.5)
+            submitButton['state'] = 'disabled'
 
 gui_launcher()
