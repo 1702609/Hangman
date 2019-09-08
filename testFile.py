@@ -1,44 +1,44 @@
 from tkinter import *
-from tkinter import ttk
+
+from PIL import Image, ImageTk
 
 root = Tk()
+root.title("Title")
+root.geometry("600x600")
+root.configure(background="black")
 
-content = ttk.Frame(root, padding=(3,3,12,12))
-frame = ttk.Frame(content, borderwidth=5, relief="sunken", width=200, height=100)
-namelbl = ttk.Label(content, text="Name")
-name = ttk.Entry(content)
 
-onevar = BooleanVar()
-twovar = BooleanVar()
-threevar = BooleanVar()
 
-onevar.set(True)
-twovar.set(False)
-threevar.set(True)
+class Example(Frame):
+    def __init__(self, master, *pargs):
+        Frame.__init__(self, master, *pargs)
 
-one = ttk.Checkbutton(content, text="One", variable=onevar, onvalue=True)
-two = ttk.Checkbutton(content, text="Two", variable=twovar, onvalue=True)
-three = ttk.Checkbutton(content, text="Three", variable=threevar, onvalue=True)
-ok = ttk.Button(content, text="Okay")
-cancel = ttk.Button(content, text="Cancel")
 
-content.grid(column=0, row=0, sticky=(N, S, E, W))
-frame.grid(column=0, row=0, columnspan=3, rowspan=2, sticky=(N, S, E, W))
-namelbl.grid(column=3, row=0, columnspan=2, sticky=(N, W), padx=5)
-name.grid(column=3, row=1, columnspan=2, sticky=(N, E, W), pady=5, padx=5)
-one.grid(column=0, row=3)
-two.grid(column=1, row=3)
-three.grid(column=2, row=3)
-ok.grid(column=3, row=3)
-cancel.grid(column=4, row=3)
 
-root.columnconfigure(0, weight=1)
-root.rowconfigure(0, weight=1)
-content.columnconfigure(0, weight=3)
-content.columnconfigure(1, weight=3)
-content.columnconfigure(2, weight=3)
-content.columnconfigure(3, weight=1)
-content.columnconfigure(4, weight=1)
-content.rowconfigure(1, weight=1)
+        self.image = Image.open("test.jpg")
+        self.img_copy= self.image.copy()
+
+
+        self.background_image = ImageTk.PhotoImage(self.image)
+
+        self.background = Label(self, image=self.background_image)
+        self.background.pack(fill=BOTH, expand=YES)
+        self.background.bind('<Configure>', self._resize_image)
+
+    def _resize_image(self,event):
+
+        new_width = event.width
+        new_height = event.height
+
+        self.image = self.img_copy.resize((new_width-100, new_height-150))
+
+        self.background_image = ImageTk.PhotoImage(self.image)
+        self.background.configure(image =  self.background_image)
+
+
+
+e = Example(root)
+e.pack(fill=BOTH, expand=YES)
+
 
 root.mainloop()

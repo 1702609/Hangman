@@ -18,7 +18,7 @@ launchFrame.grid_columnconfigure(0, weight=1)
 canvas = tk.Canvas(root, width=500, height=500, bg = 'red')
 
 def gui_launcher():
-    root.wm_geometry("1000x600")
+    root.minsize(800,600)
     introduction = tk.Label(launchFrame, text='Please choose the following option:', bg='gold')
     introduction.grid(row = 0, column =0, sticky='EW')
     start = tk.Button(launchFrame, text='Start the game', fg='red')
@@ -79,7 +79,7 @@ def wrongGuess():
     picID = ge.getNumberOfFails()
     img = ImageTk.PhotoImage(Image.open("img/pic" + str(picID) + ".png"))
     canvas.create_image(260, 400, image=img)
-    canvas.grid(row = 0, column=3)
+    canvas.grid(row = 3, column=0, pady = 20)
     # The Label widget is a standard Tkinter widget used to display a text or image on the screen.
     root.mainloop()
 
