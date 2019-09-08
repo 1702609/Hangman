@@ -21,24 +21,15 @@ def gui_launcher():
     root.wm_geometry("1000x600")
     introduction = tk.Label(launchFrame, text='Please choose the following option:', bg='gold')
     introduction.grid(row = 0, column =0, sticky='EW')
-    start = tk.Button(launchFrame, text='Start the game', fg='red', pady= 10)
-    start.grid(row = 1, column=0)
+    start = tk.Button(launchFrame, text='Start the game', fg='red')
+    start.grid(row = 1, column=0, pady = (16,0))
+    launchFrame.rowconfigure(1, weight=1)
     start.bind('<Button-1>', startGame)
     stats = tk.Button(launchFrame, text='View stats (coming soon)', fg='blue')
-    stats.grid(row = 2, column=0)
+    stats.grid(row = 2, column=0, pady = (8,0))
+    launchFrame.rowconfigure(2, weight=1)
     exitB = tk.Button(launchFrame, text='Exit', fg='green', bg='black')
-    exitB.grid(row = 3, column=0)
-
-    ButtonFrame = tk.Frame(root)
-
-    Button1 = tk.Button(ButtonFrame,
-                         text="Delete").pack(side=tk.LEFT, padx=5, pady=5)
-    Button2 = tk.Button(ButtonFrame,
-                         text="Update").pack(side=tk.LEFT, padx=5, pady=5)
-    Button3 = tk.Button(ButtonFrame,
-                         text="Edit").pack(side=tk.LEFT, padx=5, pady=5)
-
-    ButtonFrame.grid(row=2, column=0)
+    exitB.grid(row = 3, column=0,pady = (8,0))
 
     root.mainloop()
 
@@ -60,21 +51,21 @@ def guiForGame():
     global hiddenWord
     hiddenWord = tk.Label(launchFrame, text=ge.getHiddenWord(), font=(None, 20))
     hiddenWord.place(x=25, y=25, anchor="center")
-    hiddenWord.pack()
+    hiddenWord.grid(row = 0, column=0)
     print(chosenWord)
     global entryFrame
     entryFrame=tk.Frame(root, bg='#fcedcc')
-    tk.Label(entryFrame, text="Guess a Letter: ").pack(side="left")
+    tk.Label(entryFrame, text="Guess a Letter: ").grid(row = 1, column=0)
     global inputU
     inputU = tk.Entry(entryFrame)
-    inputU.pack(side="left")
+    inputU.grid(row = 1, column=1)
     global submitButton
     submitButton = tk.Button(entryFrame, text="Submit")
-    submitButton.pack(side="left")
+    submitButton.grid(row = 1, column=2)
     submitButton.bind('<Button-1>', submitLetter)
-    entryFrame.pack(pady=20)
+    entryFrame.grid(row = 1, column=0)
     launchFrame.configure(bg='#fcedcc')
-    launchFrame.pack(fill=tk.X)
+    launchFrame.grid(row = 0, column=0)
 
 def submitLetter(event):
     if submitButton['state'] == 'disabled':
@@ -88,7 +79,7 @@ def wrongGuess():
     picID = ge.getNumberOfFails()
     img = ImageTk.PhotoImage(Image.open("img/pic" + str(picID) + ".png"))
     canvas.create_image(260, 400, image=img)
-    canvas.pack()
+    canvas.grid(row = 0, column=3)
     # The Label widget is a standard Tkinter widget used to display a text or image on the screen.
     root.mainloop()
 
