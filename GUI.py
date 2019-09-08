@@ -9,21 +9,25 @@ words = 'feminist functionalist globalisation verstehen postmodernism durkheim p
             'interactionism simulacra phenomenology'.split()
 
 root = tk.Tk()
+root.grid_columnconfigure(0,weight=1)
+
 launchFrame = tk.Frame(root, bg='#fcedcc', height=250, padx=25, pady = 10)
-launchFrame.grid(row = 0, column=0)
+launchFrame.grid(row = 0, column=0,sticky='EW')
+launchFrame.grid_columnconfigure(0, weight=1)
 #bottomFrame = tk.Frame(root, bg='#fcedcc', width=500, height=500).pack(side = tk.BOTTOM)
 canvas = tk.Canvas(root, width=500, height=500, bg = 'red')
 
 def gui_launcher():
     root.wm_geometry("1000x600")
     introduction = tk.Label(launchFrame, text='Please choose the following option:', bg='gold')
+    introduction.grid(row = 0, column =0, sticky='EW')
     start = tk.Button(launchFrame, text='Start the game', fg='red', pady= 10)
-    start.grid(row = 0, column=0)
+    start.grid(row = 1, column=0)
     start.bind('<Button-1>', startGame)
     stats = tk.Button(launchFrame, text='View stats (coming soon)', fg='blue')
-    stats.grid(row = 1, column=0)
+    stats.grid(row = 2, column=0)
     exitB = tk.Button(launchFrame, text='Exit', fg='green', bg='black')
-    exitB.grid(row = 2, column=0)
+    exitB.grid(row = 3, column=0)
 
     ButtonFrame = tk.Frame(root)
 
