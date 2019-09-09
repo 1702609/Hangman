@@ -48,4 +48,8 @@ class GameEngine:
     def getNumberOfFails(self):
         return self.failNo
 
-
+    def initialiseEngine(self):
+        self.word = " "
+        self.wordArray = []
+        self.dashArray = []
+        self.failNo = 0

@@ -98,12 +98,13 @@ def isWordComplete():
     backToMainMenu = tk.Button(entryFrame, text="Main Menu")
     backToMainMenu.bind('<Button-1>', restartGame)
     backToMainMenu.grid(row = 2, column=1, pady = (8,0))
-    del ge
     print("The thread has been terminated")
 
 def restartGame(event):
     for widget in root.winfo_children():
         widget.destroy()
+    ge.initialiseEngine()
     gui_launcher()
+
 
 gui_launcher()
