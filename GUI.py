@@ -46,7 +46,7 @@ def startGame(event):
 
 def guiForGame():
     for widget in launchFrame.winfo_children():
-        widget.destroy()
+        widget.destroy() #clears the window
     chosenWord = ge.getChoosenWord()
     global hiddenWord
     hiddenWord = tk.Label(launchFrame, text=ge.getHiddenWord(), font=(None, 20))
@@ -57,13 +57,13 @@ def guiForGame():
     entryFrame=tk.Frame(root, bg='#fcedcc')
     tk.Label(entryFrame, text="Guess a Letter: ").grid(row = 1, column=0)
     global inputU
-    inputU = tk.Entry(entryFrame)
+    inputU = tk.Entry(entryFrame, width = 5)
     inputU.grid(row = 1, column=1)
     global submitButton
     submitButton = tk.Button(entryFrame, text="Submit")
     submitButton.grid(row = 1, column=2)
     submitButton.bind('<Button-1>', submitLetter)
-    entryFrame.grid(row = 1, column=0)
+    entryFrame.grid(row = 1, column=0, pady = (8,0))
     launchFrame.configure(bg='#fcedcc')
     launchFrame.grid(row = 0, column=0)
 
