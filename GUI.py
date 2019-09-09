@@ -5,20 +5,22 @@ from GameEngine import GameEngine
 from PIL import ImageTk, Image
 import threading
 
-words = 'feminist functionalist globalisation verstehen postmodernism durkheim parson murdock murray becker ' \
-            'interactionism simulacra phenomenology'.split()
+words = 'short cold hot'.split()
 
 root = tk.Tk()
+root.minsize(800, 600)
 root.grid_columnconfigure(0,weight=1)
 
-launchFrame = tk.Frame(root, bg='#fcedcc', height=250, padx=25, pady = 10)
-launchFrame.grid(row = 0, column=0,sticky='EW')
-launchFrame.grid_columnconfigure(0, weight=1)
-#bottomFrame = tk.Frame(root, bg='#fcedcc', width=500, height=500).pack(side = tk.BOTTOM)
-canvas = tk.Canvas(root, width=500, height=500, bg = 'red')
+def initialiseFrame():
+    global launchFrame
+    launchFrame = tk.Frame(root, bg='#fcedcc', height=250, padx=25, pady = 10)
+    launchFrame.grid(row = 0, column=0,sticky='EW')
+    launchFrame.grid_columnconfigure(0, weight=1)
+    global canvas
+    canvas = tk.Canvas(root, width=500, height=500, bg = 'red')
 
 def gui_launcher():
-    root.minsize(800,600)
+    initialiseFrame()
     introduction = tk.Label(launchFrame, text='Please choose the following option:', bg='gold')
     introduction.grid(row = 0, column =0, sticky='EW')
     start = tk.Button(launchFrame, text='Start the game', fg='red')
@@ -93,6 +95,15 @@ def isWordComplete():
             time.sleep(0.5)
             submitButton['state'] = 'disabled'
             flag = False
+    backToMainMenu = tk.Button(entryFrame, text="Main Menu")
+    backToMainMenu.bind('<Button-1>', restartGame)
+    backToMainMenu.grid(row = 2, column=1, pady = (8,0))
+    del ge
     print("The thread has been terminated")
+
+def restartGame(event):
+    for widget in root.winfo_children():
+        widget.destroy()
+    gui_launcher()
 
 gui_launcher()
