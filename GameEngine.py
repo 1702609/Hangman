@@ -50,6 +50,6 @@ class GameEngine:
 
     def initialiseEngine(self):
         self.word = " "
-        self.wordArray = []
-        self.dashArray = []
+        self.wordArray.clear()
+        self.dashArray.clear()
         self.failNo = 0

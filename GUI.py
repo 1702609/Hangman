@@ -32,7 +32,6 @@ def gui_launcher():
     launchFrame.rowconfigure(2, weight=1)
     exitB = tk.Button(launchFrame, text='Exit', fg='green', bg='black')
     exitB.grid(row = 3, column=0,pady = (8,0))
-
     root.mainloop()
 
 def getChoosenWord():
@@ -103,7 +102,9 @@ def isWordComplete():
 def restartGame(event):
     for widget in root.winfo_children():
         widget.destroy()
+    print('1. '+ge.getChoosenWord())
     ge.initialiseEngine()
+    print('2. '+ge.getHiddenWord())
     gui_launcher()
 
 
