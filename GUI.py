@@ -42,7 +42,7 @@ def startGame(event):
     global ge
     ge = GameEngine(getChoosenWord())
     guiForGame()
-    thread1 = threading.Thread(target=isWordComplete)
+    thread1 = threading.Thread(target=gameCompletionCheck)
     thread1.start()
 
 def guiForGame():
@@ -85,18 +85,26 @@ def wrongGuess():
     root.mainloop()
 
 
-def isWordComplete():
+def gameCompletionCheck():
     flag = True
     while flag:
-        if "-" in hiddenWord.cget("text"):
+        if "-"  in hiddenWord.cget("text") and ge.getNumberOfFails() != 7:
             time.sleep(0.5)
-        else:
+        elif ge.getNumberOfFails() == 7:
+            submitButton['state'] = 'disabled'
+            flag = False
+            failMsg = tk.Label(entryFrame, text = "You lose!")
+            failMsg.grid(row=2, column=1, pady=(8, 0))
+        else :
             time.sleep(0.5)
             submitButton['state'] = 'disabled'
             flag = False
+            winMsg = tk.Label(entryFrame, text="You win!")
+            winMsg.grid(row=2, column=1, pady=(8, 0))
+
     backToMainMenu = tk.Button(entryFrame, text="Main Menu")
     backToMainMenu.bind('<Button-1>', restartGame)
-    backToMainMenu.grid(row = 2, column=1, pady = (8,0))
+    backToMainMenu.grid(row = 3, column=1, pady = (8,0))
     print("The thread has been terminated")
 
 def restartGame(event):
