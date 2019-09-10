@@ -25,10 +25,9 @@ def gui_launcher():
     title.grid(row = 0, column =0)
     introduction = tk.Label(launchFrame, text='Please choose the following option:', bg='gold' , pady = 8)
     introduction.grid(row = 1, column =0, sticky='EW')
-    start = tk.Button(launchFrame, text='Start the game', fg='red')
+    start = tk.Button(launchFrame, text='Start the game', fg='red', command = startGame)
     start.grid(row = 2, column=0, pady = (16,0))
     launchFrame.rowconfigure(1, weight=1)
-    start.bind('<Button-1>', startGame)
     stats = tk.Button(launchFrame, text='View stats (coming soon)', fg='blue')
     stats.grid(row = 3, column=0, pady = (8,0))
     launchFrame.rowconfigure(2, weight=1)
@@ -40,7 +39,7 @@ def getChoosenWord():
     num = random.randint(0, len(words) - 1)  # it selects a number
     return (words[num]).lower()
 
-def startGame(event):
+def startGame():
     global ge
     ge = GameEngine(getChoosenWord())
     guiForGame()
@@ -81,6 +80,7 @@ def submitLetter(event):
         pass
     elif ge.isGuessCorrect(inputU.get()) == True:
         hiddenWord.config(text = ge.getUpdate(inputU.get()))
+        inputU.delete(0, 'end')
     else:
         wrongGuess()
 
@@ -89,6 +89,7 @@ def wrongGuess():
     img = ImageTk.PhotoImage(Image.open("img/pic" + str(picID) + ".png"))
     canvas.create_image(260, 400, image=img)
     canvas.grid(row = 3, column=0, pady = 20)
+    inputU.delete(0, 'end')
     # The Label widget is a standard Tkinter widget used to display a text or image on the screen.
     root.mainloop()
 
@@ -114,12 +115,11 @@ def gameCompletionCheck():
             winMsg = tk.Label(entryFrame, text="You win!")
             winMsg.grid(row=2, column=1, pady=(8, 0))
 
-    backToMainMenu = tk.Button(entryFrame, text="Main Menu")
-    backToMainMenu.bind('<Button-1>', restartGame)
+    backToMainMenu = tk.Button(entryFrame, text="Main Menu", command=restartGame)
     backToMainMenu.grid(row = 3, column=1, pady = (8,0))
     print("The thread has been terminated")
 
-def restartGame(event):
+def restartGame():
     for widget in root.winfo_children():
         widget.destroy()
     print('1. '+ge.getChoosenWord())
