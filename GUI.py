@@ -49,17 +49,23 @@ def guiForGame():
     for widget in launchFrame.winfo_children():
         widget.destroy() #clears the window
     chosenWord = ge.getChoosenWord()
+
     global hiddenWord
     hiddenWord = tk.Label(launchFrame, text=ge.getHiddenWord(), font=(None, 20))
     hiddenWord.place(x=25, y=25, anchor="center")
     hiddenWord.grid(row = 0, column=0)
     print(chosenWord)
+
     global entryFrame
     entryFrame=tk.Frame(root, bg='#fcedcc')
     tk.Label(entryFrame, text="Guess a Letter: ").grid(row = 1, column=0)
+
+    sv = tk.StringVar()
+    sv.trace("w", lambda name, index, mode, sv=sv: limitCharacter(sv))
     global inputU
-    inputU = tk.Entry(entryFrame, width = 5)
+    inputU = tk.Entry(entryFrame, width = 5, textvariable=sv)
     inputU.grid(row = 1, column=1)
+
     global submitButton
     submitButton = tk.Button(entryFrame, text="Submit")
     submitButton.grid(row = 1, column=2)
@@ -84,6 +90,10 @@ def wrongGuess():
     # The Label widget is a standard Tkinter widget used to display a text or image on the screen.
     root.mainloop()
 
+
+def limitCharacter(sv):
+    c = sv.get()[0:1]
+    sv.set(c)
 
 def gameCompletionCheck():
     flag = True

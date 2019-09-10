@@ -1,44 +1,18 @@
 from tkinter import *
+def main():
+    pass
 
-from PIL import Image, ImageTk
+if __name__ == '__main__':
+    main()
+
+def callback(sv):
+    c = sv.get()[0:1]
+    print ("c=" , c)
+    sv.set(c)
 
 root = Tk()
-root.title("Title")
-root.geometry("600x600")
-root.configure(background="black")
-
-
-
-class Example(Frame):
-    def __init__(self, master, *pargs):
-        Frame.__init__(self, master, *pargs)
-
-
-
-        self.image = Image.open("test.jpg")
-        self.img_copy= self.image.copy()
-
-
-        self.background_image = ImageTk.PhotoImage(self.image)
-
-        self.background = Label(self, image=self.background_image)
-        self.background.pack(fill=BOTH, expand=YES)
-        self.background.bind('<Configure>', self._resize_image)
-
-    def _resize_image(self,event):
-
-        new_width = event.width
-        new_height = event.height
-
-        self.image = self.img_copy.resize((new_width-100, new_height-150))
-
-        self.background_image = ImageTk.PhotoImage(self.image)
-        self.background.configure(image =  self.background_image)
-
-
-
-e = Example(root)
-e.pack(fill=BOTH, expand=YES)
-
-
+sv = StringVar()
+sv.trace("w", lambda name, index, mode, sv=sv: callback(sv))
+e = Entry(root, textvariable=sv)
+e.pack()
 root.mainloop()
