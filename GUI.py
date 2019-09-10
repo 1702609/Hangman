@@ -21,17 +21,19 @@ def initialiseFrame():
 
 def gui_launcher():
     initialiseFrame()
-    introduction = tk.Label(launchFrame, text='Please choose the following option:', bg='gold')
-    introduction.grid(row = 0, column =0, sticky='EW')
+    title = tk.Label(launchFrame, text='Hangman Game', font = ('Arial',27), pady = 8)
+    title.grid(row = 0, column =0)
+    introduction = tk.Label(launchFrame, text='Please choose the following option:', bg='gold' , pady = 8)
+    introduction.grid(row = 1, column =0, sticky='EW')
     start = tk.Button(launchFrame, text='Start the game', fg='red')
-    start.grid(row = 1, column=0, pady = (16,0))
+    start.grid(row = 2, column=0, pady = (16,0))
     launchFrame.rowconfigure(1, weight=1)
     start.bind('<Button-1>', startGame)
     stats = tk.Button(launchFrame, text='View stats (coming soon)', fg='blue')
-    stats.grid(row = 2, column=0, pady = (8,0))
+    stats.grid(row = 3, column=0, pady = (8,0))
     launchFrame.rowconfigure(2, weight=1)
     exitB = tk.Button(launchFrame, text='Exit', fg='green', bg='black')
-    exitB.grid(row = 3, column=0,pady = (8,0))
+    exitB.grid(row = 4, column=0,pady = (8,0))
     root.mainloop()
 
 def getChoosenWord():
