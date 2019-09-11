@@ -1,6 +1,8 @@
 import time
 import tkinter as tk
 import random
+
+import statManager
 from GameEngine import GameEngine
 from PIL import ImageTk, Image
 import threading
@@ -100,7 +102,6 @@ def wrongGuess():
     # The Label widget is a standard Tkinter widget used to display a text or image on the screen.
     root.mainloop()
 
-
 def limitCharacter(sv):
     c = sv.get()[0:1]
     sv.set(c)
@@ -116,15 +117,15 @@ def gameCompletionCheck():
             flag = False
             failMsg = tk.Label(entryFrame, text="You lose!")
             failMsg.grid(row=2, column=1, pady=(8, 0))
-            ge.playerWon(False)
+            statManager.statManager.setWin(False)
         else:
             time.sleep(0.5)
             submitButton['state'] = 'disabled'
             flag = False
             winMsg = tk.Label(entryFrame, text="You win!")
             winMsg.grid(row=2, column=1, pady=(8, 0))
-            ge.playerWon(True)
-    ge.updateStat()
+            statManager.statManager.setWin(True)
+    statManager.statManager.updateStat()
     backToMainMenu = tk.Button(entryFrame, text="Main Menu", command=restartGame)
     backToMainMenu.grid(row=3, column=1, pady=(8, 0))
     print("The thread has been terminated")
