@@ -116,13 +116,15 @@ def gameCompletionCheck():
             flag = False
             failMsg = tk.Label(entryFrame, text="You lose!")
             failMsg.grid(row=2, column=1, pady=(8, 0))
+            ge.playerWon(False)
         else:
             time.sleep(0.5)
             submitButton['state'] = 'disabled'
             flag = False
             winMsg = tk.Label(entryFrame, text="You win!")
             winMsg.grid(row=2, column=1, pady=(8, 0))
-
+            ge.playerWon(True)
+    ge.updateStat()
     backToMainMenu = tk.Button(entryFrame, text="Main Menu", command=restartGame)
     backToMainMenu.grid(row=3, column=1, pady=(8, 0))
     print("The thread has been terminated")

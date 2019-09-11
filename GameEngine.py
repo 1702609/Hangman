@@ -1,9 +1,11 @@
+import json
 
 class GameEngine:
     word = " "
     wordArray = []
     dashArray = []
     failNo = 0
+    gameWin = False
 
     def __init__(self, choosenWord):
         self.word = choosenWord
@@ -53,3 +55,19 @@ class GameEngine:
         self.wordArray.clear()
         self.dashArray.clear()
         self.failNo = 0
+
+    def playerWon(self, flag):
+        self.gameWin = flag
+
+    def updateStat(self):
+        if self.gameWin == True:
+            requiredStat = "totalWin"
+        else:
+            requiredStat = "totalLoss"
+        with open('stat.json', 'r+') as f:
+            dataStat = json.load(f)
+            previousNumber = dataStat[requiredStat]
+            dataStat[requiredStat] = previousNumber + 1
+            f.seek(0)
+            f.truncate()
+            json.dump(dataStat, f)
