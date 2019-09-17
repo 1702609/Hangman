@@ -1,3 +1,4 @@
+import random
 
 class GameEngine:
     word = " "
@@ -5,11 +6,25 @@ class GameEngine:
     dashArray = []
     failNo = 0
     gameWin = False
+    __instance = None
+    words = 'short cold hot tall car'.split()
 
-    def __init__(self, choosenWord):
-        self.word = choosenWord
-        for ind in self.word:  # converts words to string list
-            self.wordArray.append(ind)
+    @staticmethod
+    def getInstance():
+        """ Static access method. """
+        if GameEngine.__instance == None:
+            GameEngine()
+        return GameEngine.__instance
+
+    def __init__(self):
+        if GameEngine.__instance != None:
+            raise Exception("This class is a singleton!")
+        else:
+            GameEngine.__instance = self
+            print("i will print only once")
+            self.word = self.getChoosenWord()
+            for ind in self.word:  # converts words to string list
+                self.wordArray.append(ind)
 
     def getChoosenWord(self):
         return self.word
@@ -55,3 +70,6 @@ class GameEngine:
         self.dashArray.clear()
         self.failNo = 0
 
+    def getChoosenWord(self):
+        num = random.randint(0, len(self.words) - 1)  # it selects a number
+        return (self.words[num]).lower()

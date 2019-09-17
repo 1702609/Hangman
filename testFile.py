@@ -1,9 +1,24 @@
-import json
+class Singleton:
+   __instance = None
+   @staticmethod
+   def getInstance():
+      """ Static access method. """
+      if Singleton.__instance == None:
+         Singleton()
+      return Singleton.__instance
+   def __init__(self):
+      """ Virtually private constructor. """
+      if Singleton.__instance != None:
+         raise Exception("This class is a singleton!")
+      else:
+         Singleton.__instance = self
+         print("i will print only once")
 
-with open('stat.json', 'r+') as f:
-    playlist = json.load(f)
-    previousNumber = playlist["totalWin"]
-    playlist["totalWin"] = previousNumber + 1
-    f.seek(0)
-    f.truncate()
-    json.dump(playlist, f)
+s = Singleton()
+print (s)
+
+s = Singleton.getInstance()
+print (s)
+
+s = Singleton.getInstance()
+print (s)
