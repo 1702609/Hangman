@@ -4,11 +4,10 @@ from tkinter import font as tkfont
 import random
 
 import statManager
-from GameEngine import GameEngine
 from PIL import ImageTk, Image
 import threading
 
-from GameGUI import GameGUI
+from GameGUI import GameGUI, populateUI
 
 
 class WindowLauncher(tk.Tk):
@@ -48,6 +47,7 @@ class MainMenuUI(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.controller = controller
+        self.parent = parent
         title = tk.Label(self, text='Hangman Game', font=('Arial', 27))
         title.grid(row=0, column=0, pady=(8, 20))
         introduction = tk.Label(self, text='Please choose the following option:', bg='gold')
@@ -62,6 +62,8 @@ class MainMenuUI(tk.Frame):
         exitB.grid(row=4, column=0, pady=(8, 0))
 
     def gameLauncher(self):
+        print("I will appear when i am tapped")
+        populateUI()
         self.controller.show_frame("GameGUI")
 
 
