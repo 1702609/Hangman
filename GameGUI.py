@@ -36,7 +36,7 @@ class GameGUI(tk.Frame):
         submitButton = tk.Button(entryFrame, text="Submit")
         submitButton.grid(row=1, column=2)
         submitButton.bind('<Button-1>', submitLetter)
-        controller1.bind('<Return>', submitLetter) #allows user to submit by hitting enter 
+        controller1.bind('<Return>', submitLetter) #allows user to submit by hitting enter
         entryFrame.grid(row=1, column=0, pady=(8, 0))
         self.configure(bg='#fcedcc')
         self.grid(row=0, column=0)

@@ -18,6 +18,9 @@ class WindowLauncher(tk.Tk):
         # the container is where we'll stack a bunch of frames
         # on top of each other, then the one we want visible
         # will be raised above the others
+        global root
+        root = self
+
         self.minsize(800, 600)
         self.grid_columnconfigure(0, weight=1)
         container = tk.Frame(self)
@@ -46,25 +49,29 @@ class WindowLauncher(tk.Tk):
 class MainMenuUI(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
-        self.controller = controller
+        global controller1
+        controller1 = controller
         self.parent = parent
         title = tk.Label(self, text='Hangman Game', font=('Arial', 27))
         title.grid(row=0, column=0, pady=(8, 20))
+
         introduction = tk.Label(self, text='Please choose the following option:', bg='gold')
         introduction.grid(row=1, column=0, sticky='EW')
-        start = tk.Button(self, text='Start the game', fg='red', command=self.gameLauncher)
+
+        start = tk.Button(self, text='Start the game', fg='red', command=gameLauncher)
         start.grid(row=2, column=0, pady=(16, 0))
         self.rowconfigure(1, weight=1)
+
         stats = tk.Button(self, text='View stats (coming soon)', fg='blue')
         stats.grid(row=3, column=0, pady=(8, 0))
         self.rowconfigure(2, weight=1)
-        exitB = tk.Button(self, text='Exit', fg='green', bg='black')
+
+        exitB = tk.Button(self, text='Exit', fg='green', bg='black', command=root.destroy)
         exitB.grid(row=4, column=0, pady=(8, 0))
 
-    def gameLauncher(self):
-        print("I will appear when i am tapped")
-        populateUI()
-        self.controller.show_frame("GameGUI")
+def gameLauncher():
+    populateUI()
+    controller1.show_frame("GameGUI")
 
 
 
