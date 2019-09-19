@@ -76,22 +76,22 @@ def wrongGuess():
 
 def gameCompletionCheck():
     flag = True
-    global winMsg, backToMainMenu
+    global resultText, backToMainMenu
     while flag:
         if "-" in hiddenWord.cget("text") and ge.getNumberOfFails() != 7:
             time.sleep(0.5)
         elif ge.getNumberOfFails() == 7:
             submitButton['state'] = 'disabled'
             flag = False
-            failMsg = tk.Label(entryFrame, text="You lose!")
-            failMsg.grid(row=2, column=1, pady=(8, 0))
+            resultText = tk.Label(entryFrame, text="You lose!")
+            resultText.grid(row=2, column=1, pady=(8, 0))
             statManager.setWin(False)
         else:
             time.sleep(0.5)
             submitButton['state'] = 'disabled'
             flag = False
-            winMsg = tk.Label(entryFrame, text="You win!")
-            winMsg.grid(row=2, column=1, pady=(8, 0))
+            resultText = tk.Label(entryFrame, text="You win!")
+            resultText.grid(row=2, column=1, pady=(8, 0))
             statManager.setWin(True)
     statManager.updateStat()
     backToMainMenu = tk.Button(entryFrame, text="Main Menu", command=restart)
@@ -107,8 +107,7 @@ def restart():
 def refresh():
     ge.initialiseEngine()
     hiddenWord.config(text=" ")
-    canvas.delete("all")
     submitButton['state'] = 'active'
-    canvas.delete("all")
-    winMsg.destroy()
+    canvas.grid_remove()
+    resultText.destroy()
     backToMainMenu.destroy()
