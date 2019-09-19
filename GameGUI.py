@@ -36,6 +36,7 @@ class GameGUI(tk.Frame):
         submitButton = tk.Button(entryFrame, text="Submit")
         submitButton.grid(row=1, column=2)
         submitButton.bind('<Button-1>', submitLetter)
+        controller1.bind('<Return>', submitLetter) #allows user to submit by hitting enter 
         entryFrame.grid(row=1, column=0, pady=(8, 0))
         self.configure(bg='#fcedcc')
         self.grid(row=0, column=0)
@@ -56,7 +57,7 @@ def populateUI():
     thread1 = threading.Thread(target=gameCompletionCheck)
     thread1.start()
 
-def submitLetter( event):
+def submitLetter(event):
     if submitButton['state'] == 'disabled':
         pass
     elif ge.isGuessCorrect(inputU.get()) == True:
