@@ -5,7 +5,7 @@ class statManager:
 
     @staticmethod
     def updateStat():
-        if statManager.gameWin == True:
+        if statManager.gameWin:
             requiredStat = "totalWin"
         else:
             requiredStat = "totalLoss"

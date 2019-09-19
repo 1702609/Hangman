@@ -1,13 +1,7 @@
-import time
 import tkinter as tk
-from tkinter import font as tkfont
-import random
 
-import statManager
-from PIL import ImageTk, Image
-import threading
-
-from GameGUI import GameGUI, populateUI
+from GUIs.StatGUI import StatGUI, populateUIStat
+from GUIs.GameGUI import GameGUI, populateUIGame
 
 
 class WindowLauncher(tk.Tk):
@@ -28,7 +22,7 @@ class WindowLauncher(tk.Tk):
         container.grid(row=0, column=0)
 
         self.frames = {}
-        for F in (MainMenuUI, GameGUI):
+        for F in (MainMenuUI, GameGUI, StatGUI):
             page_name = F.__name__
             frame = F(parent=container, controller=self)
             self.frames[page_name] = frame
@@ -62,7 +56,7 @@ class MainMenuUI(tk.Frame):
         start.grid(row=2, column=0, pady=(16, 0))
         self.rowconfigure(1, weight=1)
 
-        stats = tk.Button(self, text='View stats (coming soon)', fg='blue')
+        stats = tk.Button(self, text='View stats (coming soon)', fg='blue', command=statLauncher)
         stats.grid(row=3, column=0, pady=(8, 0))
         self.rowconfigure(2, weight=1)
 
@@ -70,10 +64,12 @@ class MainMenuUI(tk.Frame):
         exitB.grid(row=4, column=0, pady=(8, 0))
 
 def gameLauncher():
-    populateUI()
+    populateUIGame()
     controller1.show_frame("GameGUI")
 
-
+def statLauncher():
+    populateUIStat()
+    controller1.show_frame("StatGUI")
 
 if __name__ == "__main__":
     app = WindowLauncher()

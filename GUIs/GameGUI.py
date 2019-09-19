@@ -48,8 +48,7 @@ class GameGUI(tk.Frame):
         c = sv.get()[0:1]
         sv.set(c)
 
-def populateUI():
-    print("I shall populate the UI")
+def populateUIGame():
     global ge
     ge = GameEngine()
     hiddenWord.config(text=ge.getHiddenWord())
